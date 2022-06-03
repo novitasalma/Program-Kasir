@@ -72,4 +72,4 @@ while True:
 
 
     else:
-        print("MASUKKAN Y ATAU TIDAK")
+        print("MASUKKAN YA ATAU TIDAK")
