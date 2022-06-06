@@ -1,4 +1,3 @@
-from re import A
 from tabulate import tabulate
 import pandas as pd
 
@@ -45,23 +44,23 @@ def diskon(total, diskon, voucher):
 total_1 = 0
 list_baru = []
 while True:
-    cek = input("Apakah anda mau menginput harga barang Y/T ? ")
-    if cek.lower() == "y":
+    cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
+    if cek.lower() == "ya":
         nomor = int(input(("Masukkan kode barang ")))
         kuantitas = int(input("Masukkan kuantitas "))
         data(kuantitas, nomor)
         total_1 = total_1 + total(kuantitas, nomor)
         list_baru.append(data_total(kuantitas, nomor))
 
-    elif cek.lower() == "t":
-        member = input("Apakah anda member Y/T? ")
+    elif cek.lower() == "tidak":
+        member = input("Apakah anda member YA/TIDAK? ")
         print("1. Tanpa Voucher")
         print("2. Voucher 15K")
         print("3. Voucher 25K")
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
-        print("===========================================")
-        if member.lower() == "ky":
+        print("=======================================================================")
+        if member.lower() == "ya":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
                 break
@@ -74,7 +73,7 @@ while True:
             else:
                 diskon(total_1, 0, voucher)
                 break
-        elif member.lower() == "t":
+        elif member.lower() == "tidak":
             if total_1 >= 1000000:
                 diskon(total_1, 0.05, voucher)
                 break
