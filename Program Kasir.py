@@ -26,11 +26,20 @@ def total(kuantitas, nomor):
     kalkulasi = data_harga * kuantitas
     return kalkulasi
 
-def diskon(total, diskon):
-    TOTAL = total - total*diskon
-    TOTAL = round(TOTAL)
-    print("TOTAL                       | {}".format(total))
-    print("TOTAL SETELAH DISKON        | {}".format(TOTAL))
+def diskon(total, diskon, voucher):
+    if voucher == 1:
+        TOTAL = total - total*diskon
+        TOTAL = round(TOTAL)
+    elif voucher == 2:
+        TOTAL = total - total*diskon - 15000
+        TOTAL = round(TOTAL)
+    elif voucher == 3:
+        TOTAL = total - total*diskon - 25000
+        TOTAL = round(TOTAL)
+    else:
+        print("MASUKKAN PILIHAN YANG VALID")
+    print("TOTAL                               | {}".format(total))
+    print("TOTAL KESELURUHAN                   | {}".format(TOTAL + TOTAL*0.11))
 
 total_1 = 0
 list_baru = []
@@ -45,27 +54,31 @@ while True:
 
     elif cek.lower() == "tidak":
         member = input("Apakah anda member YA/TIDAK? ")
-        print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah"]))
-        print("=====================================")
+        print("1. Tanpa Voucher")
+        print("2. Voucher 15K")
+        print("3. Voucher 25K")
+        voucher = int(input("Masukkan Pilihan Voucher Anda "))
+        print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
+        print("===========================================")
         if member.lower() == "ya":
             if total_1 >= 50000:
-                diskon(total_1, 0.05)
+                diskon(total_1, 0.05, voucher)
                 break
             elif total_1 >= 500000:
-                diskon(total_1, 0.1)
+                diskon(total_1, 0.1, voucher)
                 break
             elif total_1 >= 1000000:
-                diskon(total_1, 0.15)
+                diskon(total_1, 0.15, voucher)
                 break
             else:
-                diskon(total_1, 0)
+                diskon(total_1, 0, voucher)
                 break
         elif member.lower() == "tidak":
             if total_1 >= 1000000:
-                diskon(total_1, 0.05)
+                diskon(total_1, 0.05, voucher)
                 break
             else:
-                diskon(total_1, 0)
+                diskon(total_1, 0, voucher)
                 break
         else:
             print("MASUKKAN YA ATAU TIDAK")
