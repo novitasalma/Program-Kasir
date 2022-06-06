@@ -5,6 +5,14 @@ import pandas as pd
 df = pd.read_excel('Data Barang.xlsx')
 df_baru = df.dropna()
 
+def Cekdaftar():
+    nomor = int(input(("Masukkan kode barang ")))
+    cek = nomor in df.Kode.unique()
+    if cek == True:
+        return nomor
+    else:
+        return False
+
 def data(kuantitas, nomor):
     kode = (nomor) - 111
     data_harga = df_baru.iloc[kode, 2]
@@ -46,7 +54,14 @@ list_baru = []
 while True:
     cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
     if cek.lower() == "ya":
-        nomor = int(input(("Masukkan kode barang ")))
+        while True:
+            nomor = Cekdaftar()
+            if nomor == False:
+                print("Masukkan kode valid")
+            else:
+                nomor = nomor
+                break
+            
         kuantitas = int(input("Masukkan kuantitas "))
         data(kuantitas, nomor)
         total_1 = total_1 + total(kuantitas, nomor)
@@ -59,7 +74,7 @@ while True:
         print("3. Voucher 25K")
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
-        print("=======================================================================")
+        print("=============================================================")
         if member.lower() == "ya":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
