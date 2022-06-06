@@ -81,7 +81,7 @@ while True:
                 diskon(total_1, 0, voucher)
                 break
         else:
-            print("MASUKKAN YA ATAU TIDAK")
+            print("MASUKKAN YA ATAU TIDA")
 
 
     else:
