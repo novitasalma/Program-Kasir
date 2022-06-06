@@ -45,7 +45,7 @@ def diskon(total, diskon, voucher):
 total_1 = 0
 list_baru = []
 while True:
-    cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
+    cek = input("Apakah anda mau menginput harga barang Y/T ? ")
     if cek.lower() == "y":
         nomor = int(input(("Masukkan kode barang ")))
         kuantitas = int(input("Masukkan kuantitas "))
