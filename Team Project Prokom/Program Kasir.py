@@ -61,7 +61,7 @@ while True:
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
         print("===========================================")
-        if member.lower() == "y":
+        if member.lower() == "ky":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
                 break
