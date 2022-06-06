@@ -1,3 +1,4 @@
+from re import A
 from tabulate import tabulate
 import pandas as pd
 
@@ -45,14 +46,14 @@ total_1 = 0
 list_baru = []
 while True:
     cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
-    if cek.lower() == "ya":
+    if cek.lower() == "y":
         nomor = int(input(("Masukkan kode barang ")))
         kuantitas = int(input("Masukkan kuantitas "))
         data(kuantitas, nomor)
         total_1 = total_1 + total(kuantitas, nomor)
         list_baru.append(data_total(kuantitas, nomor))
 
-    elif cek.lower() == "tidak":
+    elif cek.lower() == "t":
         member = input("Apakah anda member YA/TIDAK? ")
         print("1. Tanpa Voucher")
         print("2. Voucher 15K")
