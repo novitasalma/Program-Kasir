@@ -54,14 +54,14 @@ while True:
         list_baru.append(data_total(kuantitas, nomor))
 
     elif cek.lower() == "t":
-        member = input("Apakah anda member YA/TIDAK? ")
+        member = input("Apakah anda member Y/T? ")
         print("1. Tanpa Voucher")
         print("2. Voucher 15K")
         print("3. Voucher 25K")
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
         print("===========================================")
-        if member.lower() == "ya":
+        if member.lower() == "y":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
                 break
@@ -74,7 +74,7 @@ while True:
             else:
                 diskon(total_1, 0, voucher)
                 break
-        elif member.lower() == "tidak":
+        elif member.lower() == "t":
             if total_1 >= 1000000:
                 diskon(total_1, 0.05, voucher)
                 break
