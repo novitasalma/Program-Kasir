@@ -73,7 +73,7 @@ while True:
             else:
                 diskon(total_1, 0, voucher)
                 break
-        elif member.lower() == "tidak":
+        elif member.lower() == "tida":
             if total_1 >= 1000000:
                 diskon(total_1, 0.05, voucher)
                 break
