@@ -1,9 +1,11 @@
+from operator import index
 from tabulate import tabulate
 import pandas as pd
 
 #panggil excel
 df = pd.read_excel('Data Barang.xlsx')
 df_baru = df.dropna()
+print(df_baru.to_string(index=0))
 
 def Cekdaftar():
     nomor = int(input(("Masukkan kode barang ")))
@@ -27,6 +29,15 @@ def data_total(kuantitas, nomor):
     kalkulasi = data_harga * (kuantitas)
     return data_barang, kuantitas, data_harga, kalkulasi
 
+#membuat dictionary supaya pandas bisa membaca perubahan yg terjadi
+def csv_baru(kuantitas, nomor):
+    kode = (nomor) - 111
+    data_harga = df_baru.iloc[kode, 2]
+    data_barang = df_baru.iloc[kode, 1]
+    kalkulasi = data_harga * (kuantitas)
+    history = {"Nama Barang" : [data_barang], "Harga Barang" : [data_harga], "Kuantitas" : [kuantitas],
+    'Jumlah' : [kalkulasi]}
+    return history
 
 def total(kuantitas, nomor):
     kode = nomor - 111
@@ -39,9 +50,6 @@ def diskon(total, diskon, voucher):
         TOTAL = total - total*diskon
         TOTAL = round(TOTAL)
     elif voucher == 2:
-        TOTAL = total - total*diskon - 15000
-        TOTAL = round(TOTAL)
-    elif voucher == 3:
         TOTAL = total - total*diskon - 25000
         TOTAL = round(TOTAL)
     else:
@@ -51,6 +59,12 @@ def diskon(total, diskon, voucher):
 
 total_1 = 0
 list_baru = []
+csv_2 = pd.read_csv('Output.csv')
+csv_dummy = {"Nama Barang" : ['-'], "Harga Barang" : ["-"], "Kuantitas" : ["-"],
+    'Jumlah' : ["-"]}
+csv_dummy = pd.DataFrame(csv_dummy)
+csv_2 = csv_2.append(csv_dummy)
+
 while True:
     cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
     if cek.lower() == "ya":
@@ -59,22 +73,25 @@ while True:
             if nomor == False:
                 print("Masukkan kode valid")
             else:
-                nomor = nomor
+                nomor = int(nomor)
                 break
             
         kuantitas = int(input("Masukkan kuantitas "))
         data(kuantitas, nomor)
+        csv_1 = csv_baru(kuantitas, nomor)
+        csv_1 = pd.DataFrame(csv_1)        
+        csv_2 = csv_2.append(csv_1)
+        csv_2.to_csv("Output.csv", index=0)
         total_1 = total_1 + total(kuantitas, nomor)
         list_baru.append(data_total(kuantitas, nomor))
 
     elif cek.lower() == "tidak":
         member = input("Apakah anda member YA/TIDAK? ")
         print("1. Tanpa Voucher")
-        print("2. Voucher 15K")
-        print("3. Voucher 25K")
+        print("2. Voucher 25K")
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
-        print("=============================================================")
+        print("=========================================================")
         if member.lower() == "ya":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
