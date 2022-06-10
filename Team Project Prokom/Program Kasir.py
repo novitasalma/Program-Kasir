@@ -7,6 +7,8 @@ df = pd.read_excel('Data Barang.xlsx')
 df_baru = df.dropna()
 print(df_baru.to_string(index=0))
 
+nama_kasir = str(input("Masukkan nama kasir : "))
+
 def Cekdaftar():
     nomor = int(input(("Masukkan kode barang ")))
     cek = nomor in df.Kode.unique()
@@ -90,8 +92,16 @@ while True:
         print("1. Tanpa Voucher")
         print("2. Voucher 25K")
         voucher = int(input("Masukkan Pilihan Voucher Anda "))
+
+        print("")
+        print("=============================================================")
+        print("KADITA MART".center(55))
+        print("Jl. Kelebet Meteor No.1 JEBRES SURAKARTA".center(55))
+        print("============================================================")
+        print("Nama kasir \t : " , nama_kasir)
+        print("")
         print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
-        print("=========================================================")
+        print("============================================================")
         if member.lower() == "ya":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
@@ -118,3 +128,7 @@ while True:
 
     else:
         print("MASUKKAN YA ATAU TIDAK")
+
+print("=============================================================")
+print("T E R I M A  K A S I H".center(55))
+print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
