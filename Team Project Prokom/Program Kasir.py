@@ -62,10 +62,10 @@ def diskon(total, diskon, voucher):
 def kembalian(total, diskon, voucher, nominal):
     if voucher == 1:
         TOTAL = total - total*diskon 
-        TOTAL = round(TOTAL)
+        TOTAL = TOTAL + TOTAL*0.11
     elif voucher == 2:
         TOTAL = total - total*diskon - 25000
-        TOTAL = round(TOTAL)
+        TOTAL = TOTAL + TOTAL*0.11
     else:
         print("MASUKKAN PILIHAN YANG VALID")
     return nominal - TOTAL 
@@ -117,52 +117,50 @@ while True:
         if member.lower() == "ya":
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
             
             elif total_1 >= 500000:
                 diskon(total_1, 0.1, voucher)
-                nominal = int(input("Masukkan? "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.1, voucher, nominal)
-                nominal = int(input("Uang Anda = "))
-                print("Kembalian Anda =", total_harga)
                 
             elif total_1 >= 1000000:
                 diskon(total_1, 0.15, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.15, voucher, nominal)
             
             elif total_1 >= 2000000:
                 diskon(total_1, 0.15, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.15, voucher, nominal)
                 
             else:
                 diskon(total_1, 0, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0, voucher, nominal)   
             
             
         elif member.lower() == "tidak":
             if total_1 >= 1000000:
                 diskon(total_1, 0.05, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
 
             if total_1 >= 2000000:
                 diskon(total_1, 0.05, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
 
             else:
                 diskon(total_1, 0, voucher)
-                nominal = int(input("Uang Anda = "))
+                nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0, voucher, nominal)
             
           
         else:
             print("MASUKKAN YA ATAU TIDAK")
-        print("Kembalian Anda =", total_harga)
+        print("KEMBALIAN                           | {}".format(total_harga))
         break
         
     else:
@@ -171,4 +169,3 @@ while True:
 print("=============================================================")
 print("T E R I M A  K A S I H".center(55))
 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-    
