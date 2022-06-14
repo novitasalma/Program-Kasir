@@ -8,14 +8,17 @@ df_baru = df.dropna()
 print(df_baru.to_string(index=0))
 
 nama_kasir = str(input("Masukkan nama kasir : "))
-
-def Cekdaftar():
-    nomor = int(input(("Masukkan kode barang ")))
-    cek = nomor in df.Kode.unique()
-    if cek == True:
-        return nomor
-    else:
-        return False
+    
+def Cekdaftar_1():
+    while True :        
+        try:
+            num = int(input("Masukkan Kode Barang "))
+            cek = num in df.Kode.unique()
+            if num < 111 or cek == False:
+                raise ValueError
+            return num  # Replacing break with return statement 
+        except ValueError:
+            print("Tolong masukkan opsi yang valid") 
 
 def data(kuantitas, nomor):
     kode = (nomor) - 111
@@ -70,6 +73,40 @@ def kembalian(total, diskon, voucher, nominal):
         print("MASUKKAN PILIHAN YANG VALID")
     return nominal - TOTAL 
 
+def input_voucher():
+    while True :        
+        try:
+            num = int(input("Masukkan Pilihan Voucher Anda "))
+            if num < 1 or num > 2:
+                raise ValueError
+            return num  # Replacing break with return statement 
+        except ValueError:
+            print("Tolong masukkan opsi yang valid") 
+
+def input_member():
+    while True:
+        member = input("Apakah anda member YA/TIDAK? ")
+        if member.lower() == 'ya':
+            return member
+            break
+        elif member.lower() == 'tidak':
+            return member
+            break
+        else: 
+            print('PILIH YA ATAU TIDAK')
+        
+def input_kuantitas():
+    while True :        
+        try:
+            num = int(input("Masukkan Kuantitas "))
+            if num < 0:
+                raise ValueError
+            return num  # Replacing break with return statement 
+        except ValueError:
+            print("Tolong masukkan opsi yang valid") 
+
+
+
 total_1 = 0
 list_baru = []
 csv_2 = pd.read_csv('Output.csv')
@@ -82,14 +119,15 @@ while True:
     cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
     if cek.lower() == "ya":
         while True:
-            nomor = Cekdaftar()
+            nomor = Cekdaftar_1()
+            
             if nomor == False:
                 print("Masukkan kode valid")
             else:
                 nomor = int(nomor)
                 break
             
-        kuantitas = int(input("Masukkan kuantitas "))
+        kuantitas = input_kuantitas()
         data(kuantitas, nomor)
         csv_1 = csv_baru(kuantitas, nomor)
         csv_1 = pd.DataFrame(csv_1)        
@@ -99,73 +137,132 @@ while True:
         list_baru.append(data_total(kuantitas, nomor))
 
     elif cek.lower() == "tidak":
-        member = input("Apakah anda member YA/TIDAK? ")
-        print("1. Tanpa Voucher")
-        print("2. Voucher 25K")
-        voucher = int(input("Masukkan Pilihan Voucher Anda "))
-
-        print("")
-        print("=============================================================")
-        print("KADITA MART".center(55))
-        print("Jl. Kelebet Meteor No.1 JEBRES SURAKARTA".center(55))
-        print("============================================================")
-        print("Nama kasir \t : " , nama_kasir)
-        print("")
-        print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
-        print("============================================================")
         
+        member = input_member()
+
         if member.lower() == "ya":
+            print("1. Tanpa Voucher")
+            print("2. Voucher 25K")
+            
+            voucher = input_voucher()
+            print("")
+            print("=============================================================")
+            print("KADITA MART".center(55))
+            print("Jl. Kelebet Meteor No.1 JEBRES SURAKARTA".center(55))
+            print("============================================================")
+            print("Nama kasir \t : " , nama_kasir)
+            print("")
+            print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
+            print("============================================================")
             if total_1 >= 50000:
                 diskon(total_1, 0.05, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print("DAPAT VOUCHER".center(55))  
+  
             
             elif total_1 >= 500000:
                 diskon(total_1, 0.1, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.1, voucher, nominal)
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()  
+  
                 
             elif total_1 >= 1000000:
                 diskon(total_1, 0.15, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.15, voucher, nominal)
-            
+                  
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()  
+
+
             elif total_1 >= 2000000:
                 diskon(total_1, 0.15, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
-                total_harga = kembalian(total_1, 0.15, voucher, nominal)
+                total_harga = kembalian(total_1, 0.15, voucher, nominal)                
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print("DAPAT VOUCHER".center(55))  
+
                 
             else:
                 diskon(total_1, 0, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
-                total_harga = kembalian(total_1, 0, voucher, nominal)   
+                total_harga = kembalian(total_1, 0, voucher, nominal)               
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()  
+
+                  
+            break 
             
             
         elif member.lower() == "tidak":
+            print("1. Tanpa Voucher")
+            print("2. Voucher 25K")
+            voucher = input_voucher()
+            print("")
+            print("=============================================================")
+            print("KADITA MART".center(55))
+            print("Jl. Kelebet Meteor No.1 JEBRES SURAKARTA".center(55))
+            print("============================================================")
+            print("Nama kasir \t : " , nama_kasir)
+            print("")
+            print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
+            print("============================================================")
             if total_1 >= 1000000:
                 diskon(total_1, 0.05, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()    
 
-            if total_1 >= 2000000:
+            elif total_1 >= 2000000:
                 diskon(total_1, 0.05, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()  
 
             else:
                 diskon(total_1, 0, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
-                total_harga = kembalian(total_1, 0, voucher, nominal)
+                total_harga = kembalian(total_1, 0, voucher, nominal)   
+                print("KEMBALIAN                           | {}".format(total_harga))
+                print("=============================================================")
+                print("T E R I M A  K A S I H".center(55))
+                print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
+                print()  
             
-          
+            break
+                  
         else:
             print("MASUKKAN YA ATAU TIDAK")
-        print("KEMBALIAN                           | {}".format(total_harga))
-        break
+        
+        
         
     else:
         print("MASUKKAN YA ATAU TIDAK")
 
-print("=============================================================")
-print("T E R I M A  K A S I H".center(55))
-print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
