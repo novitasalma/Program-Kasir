@@ -1,13 +1,30 @@
 from operator import index
+from tkinter.tix import Tree
 from tabulate import tabulate
 import pandas as pd
 
 #panggil excel
 df = pd.read_excel('Data Barang.xlsx')
+df2 = pd.read_excel('Data Pengguna.xlsx')
 df_baru = df.dropna()
 print(df_baru.to_string(index=0))
 
-nama_kasir = str(input("Masukkan nama kasir : "))
+
+
+def CekPengguna():
+    while True:
+        try:
+            nama = input("Masukkan Username : ")
+            password = input('Masukkan Password : ')
+            ceknama = nama in df2.Username.unique()
+            cekpassword =  password in df2.Password.unique()
+            if ceknama == False or cekpassword == False:
+                raise ValueError
+            print('Data karyawan dikenali, silahkan lanjut')
+            print('=======================================')
+            return nama
+        except ValueError:
+            print("NAMA ATAU PASSWORD SALAH, SILAHKAN COBA LAGI")
     
 def Cekdaftar_1():
     while True :        
@@ -106,6 +123,7 @@ def input_kuantitas():
             print("Tolong masukkan opsi yang valid") 
 
 
+nama_kasir = CekPengguna()
 
 total_1 = 0
 list_baru = []
@@ -137,13 +155,11 @@ while True:
         list_baru.append(data_total(kuantitas, nomor))
 
     elif cek.lower() == "tidak":
-        
         member = input_member()
 
         if member.lower() == "ya":
             print("1. Tanpa Voucher")
             print("2. Voucher 25K")
-            
             voucher = input_voucher()
             print("")
             print("=============================================================")
@@ -154,7 +170,7 @@ while True:
             print("")
             print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
             print("============================================================")
-            if total_1 >= 50000:
+            if total_1 >= 50000 and total_1 < 500000:
                 diskon(total_1, 0.05, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
@@ -162,10 +178,9 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print("DAPAT VOUCHER".center(55))  
-  
-            
-            elif total_1 >= 500000:
+                print()  
+           
+            elif total_1 >= 500000 and total_1 < 1000000:
                 diskon(total_1, 0.1, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.1, voucher, nominal)
@@ -176,16 +191,15 @@ while True:
                 print()  
   
                 
-            elif total_1 >= 1000000:
+            elif total_1 >= 1000000 and total_1 < 2000000:
                 diskon(total_1, 0.15, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
-                total_harga = kembalian(total_1, 0.15, voucher, nominal)
-                  
+                total_harga = kembalian(total_1, 0.15, voucher, nominal)     
                 print("KEMBALIAN                           | {}".format(total_harga))
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print()  
+                print()
 
 
             elif total_1 >= 2000000:
@@ -196,8 +210,7 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print("DAPAT VOUCHER".center(55))  
-
+                print("DAPAT VOUCHER".center(55))
                 
             else:
                 diskon(total_1, 0, voucher)
@@ -207,9 +220,8 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print()  
+                print()
 
-                  
             break 
             
             
@@ -226,7 +238,7 @@ while True:
             print("")
             print(tabulate(list_baru, headers=["Barang", "Kuantitas", "Harga", "Jumlah              "]))
             print("============================================================")
-            if total_1 >= 1000000:
+            if total_1 >= 1000000 and total_1 < 2000000:
                 diskon(total_1, 0.05, voucher)
                 nominal = int(input("TOTAL TUNAI                         | "))
                 total_harga = kembalian(total_1, 0.05, voucher, nominal)
@@ -244,7 +256,7 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print()  
+                print("DAPAT VOUCHER".center(55))   
 
             else:
                 diskon(total_1, 0, voucher)
@@ -255,7 +267,6 @@ while True:
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
                 print()  
-            
             break
                   
         else:
@@ -265,4 +276,3 @@ while True:
         
     else:
         print("MASUKKAN YA ATAU TIDAK")
-
