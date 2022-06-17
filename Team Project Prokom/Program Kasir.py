@@ -1,5 +1,4 @@
 from operator import index
-from tkinter.tix import Tree
 from tabulate import tabulate
 import pandas as pd
 
@@ -77,7 +76,7 @@ def diskon(total, diskon, voucher):
     else:
         print("MASUKKAN PILIHAN YANG VALID")
     print("TOTAL                               | {}".format(total))
-    print("TOTAL KESELURUHAN                   | {}".format(TOTAL + TOTAL*0.11))
+    print("GRAND TOTAL                         | {}".format(TOTAL + TOTAL*0.11))
 
 def kembalian(total, diskon, voucher, nominal):
     if voucher == 1:
@@ -134,7 +133,7 @@ csv_dummy = pd.DataFrame(csv_dummy)
 csv_2 = csv_2.append(csv_dummy)
 
 while True:
-    cek = input("Apakah anda mau menginput harga barang YA/TIDAK ? ")
+    cek = input("Apakah anda mau menginput barang YA/TIDAK ? ")
     if cek.lower() == "ya":
         while True:
             nomor = Cekdaftar_1()
@@ -210,7 +209,7 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print("DAPAT VOUCHER".center(55))
+                print("Selamat, anda mendapatkan voucher Rp 25.000".center(55))
                 
             else:
                 diskon(total_1, 0, voucher)
@@ -256,7 +255,7 @@ while True:
                 print("=============================================================")
                 print("T E R I M A  K A S I H".center(55))
                 print("Barang yang sudah dibeli tidak dapat dikembalikan".center(55))
-                print("DAPAT VOUCHER".center(55))   
+                print("Selamat, anda mendapatkan voucher Rp 25.000".center(55))   
 
             else:
                 diskon(total_1, 0, voucher)
